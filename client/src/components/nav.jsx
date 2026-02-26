@@ -9,7 +9,9 @@ const NavBar = (props) => {
     <>
       <div className="nav">
         <div className="nav-items">
-          <img className="icons" id= 'logo'src={logo} alt=""></img>
+          <Link to="/home">
+            <img className="icons" id= 'logo'src={logo} alt=""></img>
+          </Link>
           <input
             type="text"
             className="search-box"
@@ -20,10 +22,12 @@ const NavBar = (props) => {
           <img className="icons" src={acct} alt=""></img>
 
           <Link to="/cart" id="cart-btn">
-            Cart (
-            {/* TODO: Replace this fallback count with real cart state in Lesson 9. */}
-            {props.length ?? 0})
-            <img src={cartlogo} alt=""></img>
+            <div id="cart">
+              Cart (
+              {/* TODO: Replace this fallback count with real cart state in Lesson 9. */}
+              {props.length ?? 0})
+              <img src={cartlogo} alt=""></img>
+            </div>
           </Link>
         </div>
         <div id="links">

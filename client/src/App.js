@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import "./styling/App.css";
 import "./styling/nav.css";
 import "./styling/footer.css";
@@ -9,6 +9,7 @@ import "./styling/account.css";
 import "./styling/contact.css";
 import "./styling/hero.css";
 import "./styling/featured.css";
+
 
 
 import About from "./pages/about";
@@ -25,25 +26,25 @@ import { NavBar } from "./components/index.js";
 import { Footer } from "./components/index.js";
 
 function App() {
+  const [searchTerm, setSearchTerm] = useState("");
   return (
-    <>
-      <BrowserRouter>
-        <div className="main">
-          <NavBar />
-          <Footer />
-        </div>
+    <BrowserRouter>
+      <div className="main">
+        <NavBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <Routes>
           <Route exact path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/account" element={<Account />} />
-          <Route path="/about" element={<About />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/contact" element={<Contact />} />
-          <Route path="/shopping" element={<Shopping />} />
+          <Route path="/shopping" element={<Shopping searchTerm={searchTerm} />} />
+          <NavBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
+          <Route path="/shopping" element={<Shopping searchTerm={searchTerm} />} />
         </Routes>
-      </BrowserRouter>
-    </>
+        <Footer />
+      </div>
+    </BrowserRouter>
   );
 }
 

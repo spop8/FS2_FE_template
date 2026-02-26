@@ -2,69 +2,104 @@ import React, { useState } from "react";
 import axios from "axios";
 
 const ContactForm = () => {
-  // Lesson 9 TODO: Step 1 – Collect the form data in component state so it can be sent to your server.
   const [formData, setFormData] = useState({
-    firstname: "",
-    lastname: "",
+    firstName: "",
+    lastName: "",
     email: "",
     subject: "",
   });
 
-  // Lesson 9 TODO: Step 2 – Send this data to your Express endpoint once it's implemented.
-  // Lesson 9 TODO: Step 3 – Handle both success and failure responses from the server.
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    axios
-      // Reminder: set REACT_APP_API_BASE_URL in your .env once your Express server is up.
-      .post(`${process.env.REACT_APP_API_BASE_URL}/submit-form`, formData)
-      .then((response) => {
-        console.log(response.data);
-        // TODO: replace this console.log with user feedback once the POST route is working.
-      })
-      .catch((error) => {
-        console.log(error);
-        // TODO: surface an error message to the user once the POST route is working.
-      });
-  };
+  const [status, setStatus] = useState({
+    loading: false,
+    success: null,
+    error: null,
+  });
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
+    setFormData((prev) => ({
+      ...prev,
+      [name]: value,
+    }));
+  };
+
+  const handleSubmit = async (event) => {
+    event.preventDefault();
+
+    setStatus({ loading: true, success: null, error: null });
+
+    try {
+      const response = await axios.post(
+        `${process.env.REACT_APP_API_BASE_URL}/submit-form`,
+        formData
+      );
+
+      setStatus({
+        loading: false,
+        success: "Message sent successfully!",
+        error: null,
+      });
+
+      // Clear form after success
+      setFormData({
+        firstName: "",
+        lastName: "",
+        email: "",
+        subject: "",
+      });
+
+      console.log(response.data);
+    } catch (error) {
+      console.error(error);
+
+      setStatus({
+        loading: false,
+        success: null,
+        error: "Something went wrong. Please try again.",
+      });
+    }
   };
 
   return (
     <div id="contact">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="fname">First Name</label>
+        <label htmlFor="firstName">First Name</label>
         <input
           type="text"
           className="name"
-          id="fname"
-          name="firstname"
+          id="firstName"
+          name="firstName"
           placeholder="Your name.."
-          value={formData.firstname}
+          value={formData.firstName}
           onChange={handleInputChange}
+          required
         />
 
-        <label htmlFor="lname">Last Name</label>
+        <label htmlFor="lastName">Last Name</label>
         <input
           type="text"
           className="name"
-          id="lname"
-          name="lastname"
+          id="lastName"
+          name="lastName"
           placeholder="Your last name.."
-          value={formData.lastname}
+          value={formData.lastName}
           onChange={handleInputChange}
+          required
         />
 
         <label htmlFor="email">Email Address</label>
-        <textarea
+        <br></br>
+        <input
+          type="email"
           id="email"
           name="email"
-          placeholder="Please leave an email address where we can reach you"
+          placeholder="Enter your email"
           value={formData.email}
           onChange={handleInputChange}
+          required
         />
+        <br></br>
+        <br></br>
 
         <label htmlFor="subject">Subject</label>
         <textarea
@@ -73,9 +108,20 @@ const ContactForm = () => {
           placeholder="Write something.."
           value={formData.subject}
           onChange={handleInputChange}
+          required
         />
 
-        <button type="submit">Submit</button>
+        <button type="submit" disabled={status.loading}>
+          {status.loading ? "Sending..." : "Submit"}
+        </button>
+
+        {status.success && (
+          <p style={{ color: "green" }}>{status.success}</p>
+        )}
+
+        {status.error && (
+          <p style={{ color: "red" }}>{status.error}</p>
+        )}
       </form>
     </div>
   );

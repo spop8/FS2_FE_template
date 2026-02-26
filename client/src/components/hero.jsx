@@ -4,8 +4,8 @@ const Hero = () => {
   return (
     <>
       <div id="hero">
-        <h3 id="hero-promo"> Add your website title / heading here! </h3>
-        <p id="hero-text">This is the hero section of your website, where you can grab the user's attention and explain the purpose of your business. Feel free to add a catchy tagline or a brief overview of your services here.</p>
+        <h3 id="hero-promo"> Ecommerce Site! </h3>
+        <p id="hero-text">Navigate the site to help you shop and find what you are looking for.</p>
       </div>
     </>
   );
