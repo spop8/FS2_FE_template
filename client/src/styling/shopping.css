@@ -1,30 +1,39 @@
+/* Prevent page overflow */
+body {
+  margin: 0;
+  overflow-x: hidden;
+}
+
+/* ================= SHOPPING GRID ================= */
+
 #shopping {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
-  grid-column-gap: 10px;
+  gap: 20px;
+
   text-align: center;
-  position: absolute;
-  top: 60px;
-  padding-bottom: 80px;
-  margin-top: 50px;
-  width: 100vw;
-  margin-left: 20px;
-  grid-gap: 10px;
-  justify-content: space-evenly;
-  align-items: center;
- 
+
+  width: 90%;
+  margin: 140px auto 80px auto;
+
+  justify-items: center;
+  align-items: start;
 }
 
+/* ================= PRODUCT CARDS ================= */
 
 .card {
   width: 100%;
   min-width: 150px;
   max-width: 200px;
-  height:250px;
+  height: 250px;
+
   background-color: rgb(96, 133, 138);
   border: solid black;
-  padding:10px;
+
+  padding: 10px;
   margin-bottom: 15px;
+
   display: flex;
   flex-direction: column;
   justify-content: space-between;
@@ -47,24 +56,39 @@
   width: 80%;
   margin: 0;
   padding: 0;
-  font-size:14px;
-  line-height:1.5;
+  font-size: 14px;
+  line-height: 1.5;
   overflow: hidden;
 }
-
-
-
 
 img {
   max-width: 100%;
 }
+
+/* ================= SHOPPING HEADER ================= */
+
+#shopping-head {
+  z-index: 1000;
+  display: flex;
+  position: fixed;
+
+  top: 100px;
+  height: 40px;
+  width: 100%;
+
+  justify-content: flex-end;
+  align-items: center;
+
+  padding-right: 40px;
+}
+
+/* ================= BUTTONS ================= */
 
 #shopping-cart {
   margin-top: 10px;
 }
 
 #products-btn {
-  top: 10px;
   width: 100px;
   height: 40px;
   margin-top: 10px;
@@ -77,50 +101,164 @@ img {
   margin-right: auto;
 }
 
-#shopping-head {
-  z-index: 1000;
+/* ================= FULL PAGE CART ================= */
+
+#cart-page {
+  width: 100%;
+  min-height: 100vh;
+
+  padding: 20px;
+  margin: 0;
+
+  background-color: #f5f5f5;
+
   display: flex;
-  position: fixed;
-  top: 100px;
-  height: 40px;
-  width: 100vw;
-}
-
-#goToCart {
-  text-align: center;
-  margin-left: auto;
-  height: 30px;
-  width: 100px;
-  margin-top: 3px;
-}
-
-#cart-title {
-  margin-top: 50px;
-}
-
-#cart-container {
-  position: fixed;
-  right: 50%;
-  transform: translate(50%, 0);
-  text-align: center;
-  padding-bottom: 80px;
-  margin-top: 120px;
-  width: 70vw;
-  border: solid red;
-  background-color: white;
-  max-height: 50vh;
-  overflow-y: scroll;
-  z-index: 1000;
-  display: flex;
-  flex-direction:column;
+  flex-direction: column;
   align-items: center;
+
+  box-sizing: border-box;
 }
 
-.card-container{
+/* ================= CART HEADER ================= */
+
+#cart-header {
+  width: 90%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+
+  margin-bottom: 30px;
+}
+
+#back-btn {
+  padding: 8px 12px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+#cart-header h1 {
+  margin: 0;
+  font-size: 28px;
+}
+
+/* ================= CART GRID ================= */
+
+#cart-items {
+  width: 90%;
+
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 20px;
+}
+
+/* ================= CART ITEM ================= */
+
+.cart-item {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+
+  background-color: #fff;
+
+  border: 1px solid #ccc;
+  padding: 15px;
+
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0,0,0,0.1);
+}
+
+/* ================= CART IMAGE ================= */
+
+.cart-item-img {
+  width: 100%;
+  max-width: 150px;
+
+  margin-bottom: 10px;
+
+  object-fit: cover;
+  border-radius: 4px;
+}
+
+/* ================= CART INFO ================= */
+
+.cart-item-info {
+  text-align: center;
+}
+
+.cart-item-info h3 {
+  margin: 5px 0;
+  font-size: 18px;
+}
+
+.cart-item-info p {
+  margin: 2px 0;
+  font-size: 14px;
+}
+
+/* ================= QUANTITY BUTTONS ================= */
+
+.cart-item-buttons {
   display: flex;
   justify-content: center;
-  align-items: center;
-  flex-wrap: wrap;
-  margin-bottom: 10px;
+  gap: 10px;
+
+  margin-top: 10px;
 }
 
+.cart-item-buttons button {
+  padding: 6px 10px;
+  font-size: 14px;
+  cursor: pointer;
+}
+
+/* ================= CART SUMMARY ================= */
+
+#cart-summary {
+  grid-column: 1 / -1;
+  text-align: center;
+
+  margin-top: 30px;
+}
+
+#checkout-btn {
+  padding: 10px 20px;
+  margin-top: 10px;
+
+  font-size: 16px;
+
+  cursor: pointer;
+
+  background-color: #4CAF50;
+  color: white;
+
+  border: none;
+  border-radius: 5px;
+}
+
+/* ================= RESPONSIVE ================= */
+
+@media (max-width: 1000px) {
+  #shopping {
+    grid-template-columns: repeat(2, 1fr);
+  }
+
+  #cart-items {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 600px) {
+  #shopping {
+    grid-template-columns: 1fr;
+  }
+
+  #cart-items {
+    grid-template-columns: 1fr;
+  }
+
+  #cart-header {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 10px;
+  }
+}

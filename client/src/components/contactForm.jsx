@@ -3,103 +3,66 @@ import axios from "axios";
 
 const ContactForm = () => {
   const [formData, setFormData] = useState({
-    firstName: "",
-    lastName: "",
+    firstname: "",
+    lastname: "",
     email: "",
     subject: "",
   });
 
-  const [status, setStatus] = useState({
-    loading: false,
-    success: null,
-    error: null,
-  });
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    axios
+      .post(`${process.env.REACT_APP_API_BASE_URL}/api/contact`, formData)
+      .then((response) => {
+        console.log(response.data);
+      })
+      .catch((error) => {
+        console.log(error);
+      });
+  };
 
   const handleInputChange = (event) => {
     const { name, value } = event.target;
-    setFormData((prev) => ({
-      ...prev,
-      [name]: value,
-    }));
-  };
-
-  const handleSubmit = async (event) => {
-    event.preventDefault();
-
-    setStatus({ loading: true, success: null, error: null });
-
-    try {
-      const response = await axios.post(
-        `${process.env.REACT_APP_API_BASE_URL}/submit-form`,
-        formData
-      );
-
-      setStatus({
-        loading: false,
-        success: "Message sent successfully!",
-        error: null,
-      });
-
-      // Clear form after success
-      setFormData({
-        firstName: "",
-        lastName: "",
-        email: "",
-        subject: "",
-      });
-
-      console.log(response.data);
-    } catch (error) {
-      console.error(error);
-
-      setStatus({
-        loading: false,
-        success: null,
-        error: "Something went wrong. Please try again.",
-      });
-    }
+    setFormData((prevFormData) => ({ ...prevFormData, [name]: value }));
   };
 
   return (
     <div id="contact">
       <form onSubmit={handleSubmit}>
-        <label htmlFor="firstName">First Name</label>
+        <label htmlFor="fname">First Name</label>
         <input
           type="text"
           className="name"
-          id="firstName"
-          name="firstName"
+          id="fname"
+          name="firstname"
           placeholder="Your name.."
-          value={formData.firstName}
+          value={formData.firstname}
           onChange={handleInputChange}
-          required
+
         />
 
-        <label htmlFor="lastName">Last Name</label>
+        <label htmlFor="lname">Last Name</label>
         <input
           type="text"
           className="name"
-          id="lastName"
-          name="lastName"
+          id="lname"
+          name="lastname"
           placeholder="Your last name.."
-          value={formData.lastName}
+          value={formData.lastname}
           onChange={handleInputChange}
-          required
+
         />
 
         <label htmlFor="email">Email Address</label>
-        <br></br>
-        <input
-          type="email"
+        <textarea
           id="email"
           name="email"
-          placeholder="Enter your email"
+          placeholder="Please leave an email address where we can reach you"
           value={formData.email}
           onChange={handleInputChange}
-          required
+
         />
-        <br></br>
-        <br></br>
+
 
         <label htmlFor="subject">Subject</label>
         <textarea
@@ -108,20 +71,10 @@ const ContactForm = () => {
           placeholder="Write something.."
           value={formData.subject}
           onChange={handleInputChange}
-          required
+
         />
 
-        <button type="submit" disabled={status.loading}>
-          {status.loading ? "Sending..." : "Submit"}
-        </button>
-
-        {status.success && (
-          <p style={{ color: "green" }}>{status.success}</p>
-        )}
-
-        {status.error && (
-          <p style={{ color: "red" }}>{status.error}</p>
-        )}
+        <button type="submit">Submit</button>
       </form>
     </div>
   );

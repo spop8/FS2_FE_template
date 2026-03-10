@@ -1,11 +1,14 @@
 import React from "react";
+import logo from "../images/logo.png";
 
 const Hero = () => {
   return (
     <>
       <div id="hero">
-        <h3 id="hero-promo"> Ecommerce Site! </h3>
-        <p id="hero-text">Navigate the site to help you shop and find what you are looking for.</p>
+        <img id="logo_big" src={logo} alt="Logo" />
+        <h3 id="hero-promo"> Arabesque Apparel </h3>
+        <p id="hero-text">Bringing dancewear to you</p>
+        <br />
       </div>
     </>
   );

@@ -32,15 +32,14 @@ function App() {
       <div className="main">
         <NavBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
         <Routes>
-          <Route exact path="/" element={<Home />} />
+          <Route path="/" element={<Home />} />
           <Route path="/home" element={<Home />} />
           <Route path="/about" element={<About />} />
           <Route path="/account" element={<Account />} />
           <Route path="/cart" element={<Cart />} />
           <Route path="/contact" element={<Contact />} />
           <Route path="/shopping" element={<Shopping searchTerm={searchTerm} />} />
-          <NavBar searchTerm={searchTerm} setSearchTerm={setSearchTerm} />
-          <Route path="/shopping" element={<Shopping searchTerm={searchTerm} />} />
+          
         </Routes>
         <Footer />
       </div>
